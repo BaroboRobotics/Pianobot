@@ -1,0 +1,67 @@
+<!DOCTYPE html!>
+<html>
+<head>
+        <script src="components/jquery/dist/jquery.js"></script>
+        <script src="js/linkbot.js"></script>
+        <script src="js/beeps-1.js"></script>
+        <link rel="stylesheet" type="text/css"
+        href="components/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+    <a href="../index.html">
+        <img src="images/linkbot-labs-ER-logo-200x46px.png">
+    </a>
+
+    <h1>Pianobot</h1>
+    <p>The Linkbot has a buzzer which can be used to play musical pitches. Try it
+    out!</p>
+
+    <div id="robot-id-entry" class="container">
+        <div class="row">
+            <div class="col-xs-1">Robot ID:</div>
+            <div class="col-xs-1">
+                <input type="text" size="5" id="robot-id">
+            </div>
+        </div>
+    </div>
+
+    <div class="piano container">
+        <div class="row">
+            <!-- piano-keys div ids are the octave number -->
+            <div class="piano-keys" id="3"></div>
+            <div class="piano-keys" id="4"></div>
+            <div class="piano-keys" id="5"></div>
+        </div>
+    </div>
+
+    <div class="code-snippet">
+        <pre class="hidden">
+#!/usr/bin/env python
+# File: ch4ex3.py
+
+import barobo
+dongle = barobo.Dongle()
+dongle.connect()
+<span class="unknown-robot-id-comment"><br># Change the robot ID shown below to the ID of your Linkbot.</span>
+robot = dongle.getLinkbot('<span class="robot-id">ABCD</span>')
+        </pre>
+
+        <pre>
+robot.setBuzzerFrequency(<input type="text" size="5" value="440" id="frequency"></input>)
+sleep(0.5)
+robot.setBuzzerFrequency(0)
+        </pre>
+
+        <div class="hider-tab">
+            <a class="expand-program" href="#">
+                <img src="images/double-chevron-down.svg" width="20px" height="20px" alt="Show/hide unabridged code" title="Show/hide unabridged code">
+            </a>
+        </div>
+    </div>
+
+    <br>
+
+    <button type="button" class="tryNow" > Try Now </button>
+</body>
+</html>
