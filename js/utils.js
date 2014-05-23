@@ -1,7 +1,7 @@
 /* Convert a scientific pitch to a frequency. The pitch is input as two
  * parameters: a pitch name ('c' for C, 'cs' for C#/Db, etc.), and an octave
  * number. */
-function frequencyFromPitch (pitch, octaveNo) {
+function frequencyFromScientificPitch (scientificPitch) {
   var relativePitchNos = {
     "c" : 0,
     "cs": 1,
@@ -18,7 +18,8 @@ function frequencyFromPitch (pitch, octaveNo) {
   };
 
   /* Where middle C's absolute pitch number is 40, A4=440Hz is 49 */
-  var absolutePitchNo = octaveNo * 12 - 8 + relativePitchNos[pitch];
+  var absolutePitchNo = scientificPitch.octave * 12 -
+    8 + relativePitchNos[scientificPitch.pitch];
   return Math.pow(2, (absolutePitchNo - 49) / 12) * 440;
 }
 

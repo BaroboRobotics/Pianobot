@@ -27,15 +27,30 @@
         <div class="row">
             <div class="col-xs-1">Robot ID:</div>
             <div class="col-xs-1">
-                <input type="text" size="5" id="robot-id">
+                <input type="text" ng-model="robotId" size="5" id="robot-id">
+            </div>
+            <div class="col-xs-1">
+                <button ng-click="playNote()" type="button" class="play">Play</button>
             </div>
         </div>
     </div>
 
     <div class="piano">
-        <ng-include data-octave="3" ng-click="playKey($event)" class="piano-keys" src="'images/PianoKeyboard.svg'"></ng-include>
-        <ng-include data-octave="4" ng-click="playKey($event)" class="piano-keys" src="'images/PianoKeyboard.svg'"></ng-include>
-        <ng-include data-octave="5" ng-click="playKey($event)" class="piano-keys" src="'images/PianoKeyboard.svg'"></ng-include>
+        <ng-include
+            ng-mousedown="strikeKey($event)"
+            ng-mouseup="muteKey($event)"
+            ng-mouseenter="cancelKey($event)"
+            data-octave="3" class="piano-keys" src="'images/PianoKeyboard.svg'"></ng-include>
+        <ng-include
+            ng-mousedown="strikeKey($event)"
+            ng-mouseup="muteKey($event)"
+            ng-mouseenter="cancelKey($event)"
+            data-octave="4" class="piano-keys" src="'images/PianoKeyboard.svg'"></ng-include>
+        <ng-include
+            ng-mousedown="strikeKey($event)"
+            ng-mouseup="muteKey($event)"
+            ng-mouseleave="cancelKey($event)"
+            data-octave="5" class="piano-keys" src="'images/PianoKeyboard.svg'"></ng-include>
     </div>
 
     <div class="code-snippet">
@@ -50,8 +65,8 @@ robot = dongle.getLinkbot('<span class="robot-id">ABCD</span>')
         </pre>
 
         <pre>
-robot.setBuzzerFrequency({{currentFrequency}})
-sleep(0.5)
+robot.setBuzzerFrequency({{oneDecimal(frequencyFromScientificPitch(note.scientificPitch))}})
+sleep({{note.duration / 1000}})
 robot.setBuzzerFrequency(0)
         </pre>
 
@@ -61,9 +76,5 @@ robot.setBuzzerFrequency(0)
             </a>
         </div>
     </div>
-
-    <br>
-
-    <button type="button" class="tryNow"> Try Now </button>
 </body>
 </html>
