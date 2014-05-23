@@ -1,14 +1,20 @@
 <!DOCTYPE html!>
-<html>
+<html ng-app>
 <head>
-        <script src="components/jquery/dist/jquery.js"></script>
-        <script src="js/linkbot.js"></script>
-        <script src="js/beeps-1.js"></script>
-        <link rel="stylesheet" type="text/css"
-        href="components/bootstrap/dist/css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="main.css">
+
+    <script src="components/jquery/dist/jquery.js"></script>
+    <script src="components/angular/angular.js"></script>
+    <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.css">
+
+    <script src="js/linkbot.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/pianobot-1.js"></script>
+    <link rel="stylesheet" type="text/css" href="main.css">
+
 </head>
-<body>
+<body ng-controller="PianobotCtrl">
+
+    <!-- Link back to the lab manager -->
     <a href="../index.html">
         <img src="images/linkbot-labs-ER-logo-200x46px.png">
     </a>
@@ -26,19 +32,15 @@
         </div>
     </div>
 
-    <div class="piano container">
-        <div class="row">
-            <!-- piano-keys div ids are the octave number -->
-            <div class="piano-keys" id="3"></div>
-            <div class="piano-keys" id="4"></div>
-            <div class="piano-keys" id="5"></div>
-        </div>
+    <div class="piano">
+        <ng-include data-octave="3" ng-click="playKey($event)" class="piano-keys" src="'images/PianoKeyboard.svg'"></ng-include>
+        <ng-include data-octave="4" ng-click="playKey($event)" class="piano-keys" src="'images/PianoKeyboard.svg'"></ng-include>
+        <ng-include data-octave="5" ng-click="playKey($event)" class="piano-keys" src="'images/PianoKeyboard.svg'"></ng-include>
     </div>
 
     <div class="code-snippet">
         <pre class="hidden">
 #!/usr/bin/env python
-# File: ch4ex3.py
 
 import barobo
 dongle = barobo.Dongle()
@@ -48,7 +50,7 @@ robot = dongle.getLinkbot('<span class="robot-id">ABCD</span>')
         </pre>
 
         <pre>
-robot.setBuzzerFrequency(<input type="text" size="5" value="440" id="frequency"></input>)
+robot.setBuzzerFrequency({{currentFrequency}})
 sleep(0.5)
 robot.setBuzzerFrequency(0)
         </pre>
@@ -62,6 +64,6 @@ robot.setBuzzerFrequency(0)
 
     <br>
 
-    <button type="button" class="tryNow" > Try Now </button>
+    <button type="button" class="tryNow"> Try Now </button>
 </body>
 </html>

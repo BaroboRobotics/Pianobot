@@ -1,3 +1,25 @@
+/* For SVG */
+.piano-key-white {
+    fill: white;
+    stroke: black;
+    transition: fill 0.25s;
+    transition-timing-function: ease;
+}
+
+.piano-key-black {
+    fill: black;
+    stroke: black;
+    /* Black keys look better with a shorter animation time. */
+    transition: fill 0.15s;
+    transition-timing-function: ease;
+}
+
+.piano-key-white:active,
+.piano-key-black:active {
+    fill: blue;
+}
+
+/* For HTML */
 body {
     margin-left: 1in;
     margin-right: 1in;
@@ -22,8 +44,15 @@ body {
     float: left;
 }
 
-div.code-snippet, pre.programlisting {
-  max-width:800px;
+pre {
+  border: 0px;
+  padding: 0;
+  margin: 0 0 0;
+}
+
+div.code-snippet,
+pre.programlisting {
+  max-width:483px;  /* PianoKeyboard.svg is 161px, and there are three of them */
   border-radius: 6px;
   border:solid;
   border-width:1px;
