@@ -32,6 +32,14 @@ function noteFromStrike (strike, timeStamp) {
       duration);
 }
 
+function startPlaying (key) {
+  $(key).addSvgClass("piano-key-playing");
+}
+
+function stopPlaying (key) {
+  $(key).removeSvgClass("piano-key-playing");
+}
+
 function PianobotCtrl ($scope) {
   $scope.robotId = '';
 
@@ -62,6 +70,8 @@ function PianobotCtrl ($scope) {
   $scope.strikeKey = function (event) {
     $scope.strike = strikeFromEvent(event);
 
+    startPlaying(event.target);
+
     robot = Linkbots.connect($scope.robotId);
     robot.buzzerFrequency(frequencyFromScientificPitch($scope.strike.scientificPitch));
   };
@@ -72,6 +82,9 @@ function PianobotCtrl ($scope) {
       return;
     }
 
+    stopPlaying(event.target);
+
+    /* Complete the current strike. */
     $scope.note = noteFromStrike($scope.strike, event.timeStamp);
 
     /* Don't need the strike information anymore. */
@@ -88,6 +101,8 @@ function PianobotCtrl ($scope) {
     if (!($scope.strike instanceof Strike)) {
       return;
     }
+
+    stopPlaying(event.relatedTarget);
 
     /* We changed keys. Complete the current strike. */
     $scope.note = noteFromStrike($scope.strike, event.timeStamp);
