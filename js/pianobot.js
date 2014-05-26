@@ -1,3 +1,11 @@
+function Strike (pitch, octave, timeStamp) {
+  this.scientificPitch = {
+    pitch: pitch,
+    octave: octave
+  };
+  this.timeStamp = timeStamp;
+}
+
 function PianobotCtrl ($scope) {
   $scope.robotId = '';
 
@@ -30,13 +38,10 @@ function PianobotCtrl ($scope) {
      * handler is installed at the octave level, but the click is generated at
      * the key level. Therefore, event.target is the key element and
      * event.currentTarget is the octave element. */
-    $scope.strike = {
-      scientificPitch: {
-        pitch: event.target.dataset.pitch,
-        octave: event.currentTarget.dataset.octave
-      },
-      timeStamp: event.timeStamp
-    };
+    $scope.strike = new Strike(
+        event.target.dataset.pitch,
+        event.currentTarget.dataset.octave,
+        event.timeStamp);
 
     robot = Linkbots.connect($scope.robotId);
     robot.buzzerFrequency(frequencyFromScientificPitch($scope.strike.scientificPitch));
@@ -44,7 +49,7 @@ function PianobotCtrl ($scope) {
 
   /* Mouseup handler for piano keys. Must be installed at the octave level. */
   $scope.muteKey = function (event) {
-    if (!('scientificPitch' in $scope.strike)) {
+    if (!($scope.strike instanceof Strike)) {
       return;
     }
 
@@ -72,7 +77,7 @@ function PianobotCtrl ($scope) {
 
   /* Mouseenter handler for piano keys. Must be installed at the octave level. */
   $scope.cancelKey = function (event) {
-    if (!('scientificPitch' in $scope.strike)) {
+    if (!($scope.strike instanceof Strike)) {
       return;
     }
 
