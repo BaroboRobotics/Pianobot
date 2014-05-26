@@ -1,9 +1,35 @@
-function Strike (pitch, octave, timeStamp) {
-  this.scientificPitch = {
-    pitch: pitch,
-    octave: octave
-  };
+function Strike (scientificPitch, timeStamp) {
+  this.scientificPitch = scientificPitch;
   this.timeStamp = timeStamp;
+}
+
+function Note (scientificPitch, duration) {
+  this.scientificPitch = scientificPitch;
+  this.duration = duration;
+}
+
+function scientificPitchFromEvent (event) {
+  /* The piano keyboard is divided into octaves, groups of 12 keys. The click
+   * handler is installed at the octave level, but the click is generated at
+   * the key level. Therefore, event.target is the key element and
+   * event.currentTarget is the octave element. */
+  return {
+    pitch: event.target.dataset.pitch,
+    octave: event.currentTarget.dataset.octave
+  };
+}
+
+function strikeFromEvent (event) {
+  return new Strike(
+      scientificPitchFromEvent(event),
+      event.timeStamp);
+}
+
+function noteFromStrike (strike, timeStamp) {
+  var duration = new Date(timeStamp) - new Date(strike.timeStamp);
+  return new Note(
+      strike.scientificPitch,
+      duration);
 }
 
 function PianobotCtrl ($scope) {
@@ -15,7 +41,7 @@ function PianobotCtrl ($scope) {
   /* Default note is A4 for half a second. */
   $scope.note = {
     scientificPitch: {
-      pitch: 'a',
+     pitch: 'a',
       octave: 4
     },
     duration: 500
@@ -34,14 +60,7 @@ function PianobotCtrl ($scope) {
 
   /* Mousedown handler for piano keys. Must be installed at the octave level. */
   $scope.strikeKey = function (event) {
-    /* The piano keyboard is divided into octaves, groups of 12 keys. The click
-     * handler is installed at the octave level, but the click is generated at
-     * the key level. Therefore, event.target is the key element and
-     * event.currentTarget is the octave element. */
-    $scope.strike = new Strike(
-        event.target.dataset.pitch,
-        event.currentTarget.dataset.octave,
-        event.timeStamp);
+    $scope.strike = strikeFromEvent(event);
 
     robot = Linkbots.connect($scope.robotId);
     robot.buzzerFrequency(frequencyFromScientificPitch($scope.strike.scientificPitch));
@@ -53,46 +72,28 @@ function PianobotCtrl ($scope) {
       return;
     }
 
-    robot = Linkbots.connect($scope.robotId);
-    robot.buzzerFrequency(0);
-
-    var scientificPitch = {
-      pitch: event.target.dataset.pitch,
-      octave: event.currentTarget.dataset.octave
-    };
-
-    /* The two objects contain different references, so direct comparison will
-     * always fail. */
-    if ($scope.strike.scientificPitch.pitch != scientificPitch.pitch ||
-        $scope.strike.scientificPitch.octave != scientificPitch.octave) {
-      return;
-    }
-
-    var duration = new Date(event.timeStamp) - new Date($scope.strike.timeStamp);
-    $scope.note = { scientificPitch: scientificPitch, duration: duration };
+    $scope.note = noteFromStrike($scope.strike, event.timeStamp);
 
     /* Don't need the strike information anymore. */
     $scope.strike = { };
+
+    robot = Linkbots.connect($scope.robotId);
+    robot.buzzerFrequency(0);
   }
 
   /* Mouseover handler for piano keys. Must be installed at the octave level. */
-  $scope.cancelKey = function (event) {
+  $scope.swipeKey = function (event) {
+    /* We only care about this event if there is an active strike: i.e., the
+     * user must be swiping the piano keyboard. */
     if (!($scope.strike instanceof Strike)) {
       return;
     }
 
-    var scientificPitch = {
-      pitch: event.target.dataset.pitch,
-      octave: event.currentTarget.dataset.octave
-    };
+    /* We changed keys. Complete the current strike. */
+    $scope.note = noteFromStrike($scope.strike, event.timeStamp);
 
-    /* If we left the key that is currently playing, stop playing it--we'll
-     * never receive the mouseup event. */
-    if ($scope.strike.scientificPitch.pitch != scientificPitch.pitch ||
-        $scope.strike.scientificPitch.octave != scientificPitch.octave) {
-      robot = Linkbots.connect($scope.robotId);
-      robot.buzzerFrequency(0);
-      $scope.strike = { };
-    }
+    /* A wee hacky, but from here on out we can just treat this event as a
+     * mousedown event. */
+    $scope.strikeKey(event);
   }
 }
