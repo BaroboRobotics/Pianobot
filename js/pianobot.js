@@ -33,11 +33,15 @@ function noteFromStrike (strike, timeStamp) {
 }
 
 function startPlaying (key) {
-  $(key).addSvgClass("piano-key-playing");
+  $(key).addClassSvg("playing");
 }
 
 function stopPlaying (key) {
-  $(key).removeSvgClass("piano-key-playing");
+  $(key).removeClassSvg("playing");
+}
+
+function isPianoKey (object) {
+  return $(object).hasClassSvg("piano-key");
 }
 
 function PianobotCtrl ($scope) {
@@ -111,4 +115,11 @@ function PianobotCtrl ($scope) {
      * mousedown event. */
     $scope.strikeKey(event);
   }
+
+  /* Mouseout handler for piano keys. Must be installed at the octave level. */
+  $scope.leaveKey = function (event) {
+    if (!isPianoKey(event.relatedTarget)) {
+      $scope.muteKey(event);
+    }
+  };
 }

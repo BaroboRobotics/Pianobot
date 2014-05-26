@@ -1,23 +1,27 @@
 /* For SVG */
-.piano-key-white {
+.piano-key.white {
     fill: white;
     stroke: black;
     transition: fill 0.15s;
     transition-timing-function: ease;
 }
 
-.piano-key-black {
+.piano-key.black {
     fill: black;
     stroke: black;
     transition: fill 0.15s;
     transition-timing-function: ease;
 }
 
-.piano-key-playing {
+.piano-key.playing {
     fill: blue;
 }
 
 /* For HTML */
+.piano {
+    -webkit-user-select: none;
+}
+
 body {
     margin-left: 1in;
     margin-right: 1in;
