@@ -75,7 +75,7 @@ function PianobotCtrl ($scope) {
     $scope.strike = { };
   }
 
-  /* Mouseenter handler for piano keys. Must be installed at the octave level. */
+  /* Mouseover handler for piano keys. Must be installed at the octave level. */
   $scope.cancelKey = function (event) {
     if (!($scope.strike instanceof Strike)) {
       return;
