@@ -1,25 +1,27 @@
 /* For SVG */
-.piano-key-white {
+.piano-key.white {
     fill: white;
     stroke: black;
-    transition: fill 0.25s;
-    transition-timing-function: ease;
-}
-
-.piano-key-black {
-    fill: black;
-    stroke: black;
-    /* Black keys look better with a shorter animation time. */
     transition: fill 0.15s;
     transition-timing-function: ease;
 }
 
-.piano-key-white:active,
-.piano-key-black:active {
+.piano-key.black {
+    fill: black;
+    stroke: black;
+    transition: fill 0.15s;
+    transition-timing-function: ease;
+}
+
+.piano-key.playing {
     fill: blue;
 }
 
 /* For HTML */
+.piano {
+    -webkit-user-select: none;
+}
+
 body {
     margin-left: 1in;
     margin-right: 1in;
@@ -83,4 +85,12 @@ pre.programlisting {
 .hider-tab img {
     height: 20px;
     width: 40px;
+}
+
+.error {
+    border-color: red;
+}
+
+.connected {
+    border-color: green;
 }
