@@ -28,7 +28,9 @@
         <div class="row">
             <div class="col-xs-1">Robot ID:</div>
             <div class="col-xs-1">
-                <input type="text" ng-model="robotId" size="5" id="robot-id">
+                <input type="text" ng-model="robotId" ng-change="checkRobotId()"
+                    maxlength="4"
+                    size="5" id="robot-id">
             </div>
         </div>
     </div>

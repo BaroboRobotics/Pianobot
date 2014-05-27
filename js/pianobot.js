@@ -63,11 +63,16 @@ function PianobotCtrl ($scope) {
   $scope.frequencyFromScientificPitch = frequencyFromScientificPitch;
 
   $scope.playNote = function () {
-    robot = Linkbots.connect($scope.robotId);
-    robot.buzzerFrequency(frequencyFromScientificPitch($scope.note.scientificPitch));
-    setTimeout(function () {
-      robot.buzzerFrequency(0);
-    }, $scope.note.duration);
+    try {
+      var robot = Linkbots.connect($scope.robotId);
+      robot.buzzerFrequency(frequencyFromScientificPitch($scope.note.scientificPitch));
+      setTimeout(function () {
+        robot.buzzerFrequency(0);
+      }, $scope.note.duration);
+    }
+    catch (e) {
+      console.log("need a bot");
+    }
   };
 
   /* Mousedown handler for piano keys. Must be installed at the octave level. */
@@ -76,8 +81,13 @@ function PianobotCtrl ($scope) {
 
     startPlaying(event.target);
 
-    robot = Linkbots.connect($scope.robotId);
-    robot.buzzerFrequency(frequencyFromScientificPitch($scope.strike.scientificPitch));
+    try {
+      var robot = Linkbots.connect($scope.robotId);
+      robot.buzzerFrequency(frequencyFromScientificPitch($scope.strike.scientificPitch));
+    }
+    catch (e) {
+      console.log("need a bot");
+    }
   };
 
   /* Mouseup handler for piano keys. Must be installed at the octave level. */
@@ -94,8 +104,13 @@ function PianobotCtrl ($scope) {
     /* Don't need the strike information anymore. */
     $scope.strike = { };
 
-    robot = Linkbots.connect($scope.robotId);
-    robot.buzzerFrequency(0);
+    try {
+      var robot = Linkbots.connect($scope.robotId);
+      robot.buzzerFrequency(0);
+    }
+    catch (e) {
+      console.log("need a bot");
+    }
   }
 
   /* Mouseover handler for piano keys. Must be installed at the octave level. */
@@ -106,6 +121,7 @@ function PianobotCtrl ($scope) {
       return;
     }
 
+    /* relatedTarget is the key that was previously struck. */
     stopPlaying(event.relatedTarget);
 
     /* We changed keys. Complete the current strike. */
@@ -118,8 +134,26 @@ function PianobotCtrl ($scope) {
 
   /* Mouseout handler for piano keys. Must be installed at the octave level. */
   $scope.leaveKey = function (event) {
+    /* relatedTarget is the element the mouse is now over. */
     if (!isPianoKey(event.relatedTarget)) {
+      /* ... while event.target is the key that was previously struck. We can
+       * use muteKey() on this event to stop the buzzer and complete the note.
+       */
       $scope.muteKey(event);
+    }
+  };
+
+  $scope.checkRobotId = function () {
+    var robotIdInput = $("#robot-id");
+    robotIdInput.removeClass("error connected");
+    if (4 == $scope.robotId.length) {
+      try {
+        var robot = Linkbots.connect($scope.robotId);
+        robotIdInput.addClass("connected");
+      }
+      catch (e) {
+        robotIdInput.addClass("error");
+      }
     }
   };
 }
