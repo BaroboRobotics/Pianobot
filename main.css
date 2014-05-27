@@ -32,10 +32,6 @@ body {
     margin-bottom: 0.5em;
 }
 
-.hidden {
-    display: none;
-}
-
 .piano {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
@@ -47,13 +43,14 @@ body {
 }
 
 pre {
+  display: block;
   border: 0px;
   padding: 0;
   margin: 0 0 0;
+  background-color:#e0fefe;
 }
 
-div.code-snippet,
-pre.programlisting {
+div.code-snippet {
   max-width:483px;  /* PianoKeyboard.svg is 161px, and there are three of them */
   border-radius: 6px;
   border:solid;
@@ -87,10 +84,21 @@ pre.programlisting {
     width: 40px;
 }
 
-.error {
+pre.hidden {
+    display: none;
+}
+
+#robot-id {
+    border-style: double;
+    border-width: 0.25em;
+}
+
+#robot-id.error {
+    border-style: solid;
     border-color: red;
 }
 
-.connected {
+#robot-id.connected {
+    border-style: solid;
     border-color: green;
 }

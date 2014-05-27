@@ -44,6 +44,16 @@ function isPianoKey (object) {
   return $(object).hasClassSvg("piano-key");
 }
 
+var imageToggle = (function() {
+  var images = [$("<img src='images/double-chevron-down.svg'></img>")
+               ,$("<img src='images/double-chevron-up.svg'></img>")
+               ];
+  var currentIdx = 0;
+  return function () {
+    return images[(++currentIdx) % 2];
+  };
+}());
+
 function PianobotCtrl ($scope) {
   $scope.robotId = '';
 
@@ -154,6 +164,25 @@ function PianobotCtrl ($scope) {
       catch (e) {
         robotIdInput.addClass("error");
       }
+    }
+  };
+
+  $scope.expandProgram = function (event) {
+    event.preventDefault();
+    var code = $("#hidden-code");
+    if (code.hasClass("hidden")) {
+      $("img", $(event.currentTarget)).replaceWith(imageToggle());
+      code.hide();
+      code.removeClass("hidden");
+      code.slideDown("slow", function () {
+      });
+    }
+    else {
+      $("img", $(event.currentTarget)).replaceWith(imageToggle());
+      code.slideUp("slow", function () {
+        code.addClass("hidden");
+        code.show();
+      });
     }
   };
 }

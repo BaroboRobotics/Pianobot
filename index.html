@@ -24,15 +24,11 @@
     <p>The Linkbot has a buzzer which can be used to play musical pitches. Try it
     out!</p>
 
-    <div id="robot-id-entry" class="container">
-        <div class="row">
-            <div class="col-xs-1">Robot ID:</div>
-            <div class="col-xs-1">
-                <input type="text" ng-model="robotId" ng-change="checkRobotId()"
-                    maxlength="4"
-                    size="5" id="robot-id">
-            </div>
-        </div>
+    <div id="robot-id-entry">
+        Robot ID:
+        <input type="text" ng-model="robotId" ng-change="checkRobotId()"
+            maxlength="4"
+            size="5" id="robot-id">
     </div>
 
     <div class="piano">
@@ -57,7 +53,7 @@
     </div>
 
     <div class="code-snippet">
-        <pre class="hidden">
+        <pre id="hidden-code" class="hidden">
 #!/usr/bin/env python
 
 import barobo
@@ -74,8 +70,8 @@ robot.setBuzzerFrequency(0)
         </pre>
 
         <div class="hider-tab">
-            <a class="expand-program" href="#">
-                <img src="images/double-chevron-down.svg" width="20px" height="20px" alt="Show/hide unabridged code" title="Show/hide unabridged code">
+            <a class="expand-program" href="#" ng-click="expandProgram($event)">
+                <img src="images/double-chevron-down.svg" alt="Show/hide unabridged code" title="Show/hide unabridged code">
             </a>
         </div>
     </div>
