@@ -81,7 +81,7 @@ function PianobotCtrl ($scope) {
       }, $scope.note.duration);
     }
     catch (e) {
-      console.log("need a bot");
+      console.log("exception with robot " + $scope.robotId + ": " + e);
     }
   };
 
@@ -96,7 +96,7 @@ function PianobotCtrl ($scope) {
       robot.buzzerFrequency(frequencyFromScientificPitch($scope.strike.scientificPitch));
     }
     catch (e) {
-      console.log("need a bot");
+      console.log("exception with robot " + $scope.robotId + ": " + e);
     }
   };
 
@@ -119,7 +119,7 @@ function PianobotCtrl ($scope) {
       robot.buzzerFrequency(0);
     }
     catch (e) {
-      console.log("need a bot");
+      console.log("exception with robot " + $scope.robotId + ": " + e);
     }
   }
 
