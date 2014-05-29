@@ -185,4 +185,15 @@ function PianobotCtrl ($scope) {
       });
     }
   };
+
+  /* Make sure the robot shuts up if the page is reloaded. */
+  $(window).unload(function () {
+    try {
+      var robot = Linkbots.connect($scope.robotId);
+      robot.buzzerFrequency(0);
+    }
+    catch (e) {
+      console.log("no robot named " + $scope.robotId + ", but that's okay!");
+    }
+  });
 }
