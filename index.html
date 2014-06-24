@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html ng-app>
+<!DOCTYPE html!>
+<html>
 <head>
 
     <script src="components/jquery/dist/jquery.js"></script>
@@ -7,13 +7,13 @@
     <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.css">
 
     <script src="js/jquery-svg-class.js"></script>
-    <script src="js/linkbot.js"></script>
+    <script src="components/linkbotjs/linkbot.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/pianobot.js"></script>
     <link rel="stylesheet" type="text/css" href="main.css">
 
 </head>
-<body ng-controller="PianobotCtrl">
+<body ng-app="Pianobot" ng-controller="PianobotCtrl">
 
     <!-- Link back to the lab manager -->
     <a href="../index.html">
@@ -23,13 +23,16 @@
     <h1>Pianobot</h1>
     <p>The Linkbot has a buzzer which can be used to play musical pitches. Try it
     out!</p>
-
+    <robot-manager></robot-manager>
+    <!--
     <div id="robot-id-entry">
         Robot ID:
         <input type="text" ng-model="robotId" ng-change="checkRobotId()"
             maxlength="4"
             size="5" id="robot-id">
     </div>
+    -->
+    <p>Add a robot: <button ng-click="addRobot()">+</button></p>
 
     <div class="piano">
         <ng-include
