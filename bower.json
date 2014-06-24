@@ -8,7 +8,7 @@
   "ignore": [
     "**/.*",
     "components",
-    "node_modules",
+    "node_modules"
   ],
   "private": true,
   "dependencies": {

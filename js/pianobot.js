@@ -8,7 +8,7 @@
         return elem.append(Linkbots.managerElement());
       }
     };
-  });
+  }); 
 
   Strike = function(scientificPitch, timeStamp) {
     this.scientificPitch = scientificPitch;
