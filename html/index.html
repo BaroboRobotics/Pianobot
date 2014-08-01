@@ -64,7 +64,7 @@ import barobo
 dongle = barobo.Dongle()
 dongle.connect()
 <span class="unknown-robot-id-comment"><br># Change the robot ID shown below to the ID of your Linkbot.</span>
-robot = dongle.getLinkbot('<span class="robot-id">ABCD</span>')
+robot = dongle.getLinkbot('<span class="robot-id">{{(robot._id | uppercase)|| "ABCD"}}</span>')
         </pre>
 
         <pre>
