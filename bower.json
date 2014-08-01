@@ -6,15 +6,14 @@
   ],
   "main": "main.css",
   "ignore": [
-    "**/.*",
-    "components",
-    "node_modules"
+    "**/*",
+    "!html/**/*"
   ],
   "private": true,
-  "dependencies": {
+  "devDependencies": {
       "jquery": "2.1.1",
       "bootstrap": "3.1.1",
       "angular": "1.2.16",
-      "linkbotjs": "BaroboRobotics/LinkbotJS#~0.1.0"
+      "linkbotjs": "BaroboRobotics/LinkbotJS#develop"
   }
 }
