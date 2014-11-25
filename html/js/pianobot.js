@@ -1,6 +1,6 @@
  (function() {
   var pianobotMod = angular.module('Pianobot', []);
-
+  /*
   pianobotMod.directive('robotManager', function() {
     return {
       restrict: 'E',
@@ -9,6 +9,7 @@
       }
     };
   }); 
+  */
 
   Strike = function(scientificPitch, timeStamp) {
     this.scientificPitch = scientificPitch;
