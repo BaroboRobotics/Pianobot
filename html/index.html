@@ -52,13 +52,13 @@
 
     <div class="code-snippet">
         <pre id="hidden-code" class="hidden">
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-import barobo
-dongle = barobo.Dongle()
-dongle.connect()
+from linkbot import Linkbot
+from time import sleep
+
 <span class="unknown-robot-id-comment"><br># Change the robot ID shown below to the ID of your Linkbot.</span>
-robot = dongle.getLinkbot('<span class="robot-id">{{(robot._id | uppercase)|| "ABCD"}}</span>')
+robot = Linkbot('<span class="robot-id">{{(robot._id | uppercase)|| "ABCD"}}</span>')
         </pre>
 
         <pre>
