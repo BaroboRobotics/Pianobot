@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="http://linkbotlabs.com/libraries/linkbotjs/linkbot.css">
 
 </head>
-<body ng-app="Pianobot" ng-controller="PianobotCtrl">
+<body ng-app="Pianobot" ng-controller="PianobotCtrl" ng-init="addRobot()">
 
     <h1>Pianobot</h1>
     <p>The Linkbot has a buzzer which can be used to play musical pitches. Try it
@@ -27,8 +27,9 @@
             size="5" id="robot-id">
     </div>
     -->
+    <!--
     <p>Add a robot: <button ng-click="addRobot()">+</button></p>
-
+    -->
     <div class="piano">
         <ng-include
             ng-mousedown="strikeKey($event)"
