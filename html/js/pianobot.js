@@ -58,8 +58,8 @@
   };
 
   imageToggle = function() {
-    var images = [$("<img src='images/double-chevron-down.svg'></img>")
-                 ,$("<img src='images/double-chevron-up.svg'></img>")
+    var images = [$("<img src='images/double-chevron-down.svg' />")
+                 ,$("<img src='images/double-chevron-up.svg' />")
                  ];
     var currentIdx = 0;
     return function () {
@@ -99,6 +99,18 @@
             $scope.stopCheckingForRobot();
           }
         }, 1000);
+        Linkbots.managerEvents.on('changed', function() {
+          if (typeof($scope.robot) != 'undefined' && $scope.robot != null) {
+            Linkbots.relinquish($scope.robot);
+            stop = $interval(function() {
+              x = Linkbots.acquire(1);
+              if (x.robots.length === 1) {
+                $scope.robot = x.robots[0];
+                $scope.stopCheckingForRobot();
+              }
+            }, 1000);
+          }
+        });
       };
       
       $scope.stopCheckingForRobot = function() {
