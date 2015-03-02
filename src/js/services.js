@@ -67,8 +67,8 @@ chapter1.factory('robotFactory', ['$interval', function($interval) {
         _cb = function() {};
         _num = 0;
         if (_intervalRef !== null) {
-            $interval.cancel(intervalRef);
-            intervalRef = null;
+            $interval.cancel(_intervalRef);
+            _intervalRef = null;
         }
     };
     return robotFactory;

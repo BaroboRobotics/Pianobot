@@ -1,9 +1,10 @@
 /**
  * Created by Adam on 3/1/2015.
  */
-chapter1.controller('pianobotController', ['$scope', '$timeout', '$interval', 'robotFactory', 'util', function($scope, $timeout, $interval, robotFactory, util) {
+chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory', 'util', function($scope, $timeout, robotFactory, util) {
     function setRobot(robots) {
         $scope.m.robot = robots[0];
+        $scope.m.robot.buzzerFrequency(0);
     }
     $scope.m = {
         displayAllCode: false,
@@ -37,6 +38,9 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', '$interval', 'r
         }, $scope.note.duration);
     };
     $scope.stopAcquisition = function() {
+        if ($scope.m.robot === null) {
+            $scope.m.robot.buzzerFrequency(0);
+        }
         robotFactory.unregister();
     };
     /* Mousedown handler for piano keys. Must be installed at the octave level. */
@@ -97,6 +101,294 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', '$interval', 'r
     };
     $scope.util = util;
     robotFactory.getRobots(setRobot, 1);
-}]).controller('lessonOneController', ['$scope', '$interval', 'robotFactory', function($scope, $interval, robotFactory) {
-    
+}]).controller('lessonOneController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
+    function setRobot(robots) {
+        $scope.m.robot = robots[0];
+        $scope.m.robot.buzzerFrequency(0);
+    }
+    $scope.m = {
+        buzzer: 1046.5,
+        displayAllCode: false,
+        robot: null,
+        running: false
+    };
+    $scope.toggle = function() {
+        $scope.m.displayAllCode = !$scope.m.displayAllCode;
+    };
+    $scope.run = function() {
+        if ($scope.m.robot === null) {
+            return;
+        }
+        $scope.m.running = true;
+        var robot = $scope.m.robot;
+        var buzzer = parseFloat($scope.m.buzzer);
+        robot.buzzerFrequency(buzzer);
+        $timeout(function () {
+            robot.buzzerFrequency(0);
+            $scope.m.running = false;
+        }, 1500);
+    };
+    $scope.stopAcquisition = function() {
+        if ($scope.m.robot !== null) {
+            $scope.m.robot.buzzerFrequency(0);
+        }
+        robotFactory.unregister();
+    };
+    robotFactory.getRobots(setRobot, 1);
+}]).controller('lessonTwoController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
+    var counter = 0;
+    function setRobot(robots) {
+        $scope.m.robot = robots[0];
+        $scope.m.robot.buzzerFrequency(0);
+    }
+    function runLoop() {
+        var buzzer = parseFloat($scope.m.buzzer);
+        var sleep1 = parseFloat($scope.m.sleep1) * 1000;
+        var sleep2 = parseFloat($scope.m.sleep2) * 1000;
+        $scope.m.robot.buzzerFrequency(buzzer);
+        $timeout(function() {
+            $scope.m.robot.buzzerFrequency(0);
+            $timeout(function() {
+                counter--;
+                if (counter > 0) {
+                    runLoop();
+                } else {
+                    $scope.m.running = false;
+                }
+            }, sleep2);
+        }, sleep1);
+    }
+    $scope.m = {
+        buzzer: 1046.5,
+        sleep1: 0.5,
+        sleep2: 0.5,
+        displayAllCode: false,
+        robot: null,
+        running: false
+    };
+    $scope.toggle = function() {
+        $scope.m.displayAllCode = !$scope.m.displayAllCode;
+    };
+    $scope.run = function() {
+        if ($scope.m.robot === null) {
+            return;
+        }
+        $scope.m.running = true;
+        counter = 10;
+        runLoop();
+    };
+    $scope.stopAcquisition = function() {
+        if ($scope.m.robot !== null) {
+            $scope.m.robot.buzzerFrequency(0);
+        }
+        robotFactory.unregister();
+    };
+    robotFactory.getRobots(setRobot, 1);
+}]).controller('lessonThreeController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
+    var counter = 0;
+    function setRobot(robots) {
+        $scope.m.robot = robots[0];
+        $scope.m.robot.buzzerFrequency(0);
+    }
+    function runLoop() {
+        var buzzer = parseFloat($scope.m.buzzer);
+        var sleep1 = parseFloat($scope.m.sleep1) * 1000;
+        var sleep2 = parseFloat($scope.m.sleep2) * 1000;
+        $scope.m.robot.buzzerFrequency(buzzer);
+        $timeout(function() {
+            $scope.m.robot.buzzerFrequency(0);
+            $timeout(function() {
+                counter--;
+                if (counter > 0) {
+                    runLoop();
+                } else {
+                    $scope.m.running = false;
+                }
+            }, sleep2);
+        }, sleep1);
+    }
+    $scope.m = {
+        buzzer: 1046.5,
+        sleep1: 1,
+        sleep2: 1,
+        counter: 5,
+        displayAllCode: false,
+        robot: null,
+        running: false
+    };
+    $scope.toggle = function() {
+        $scope.m.displayAllCode = !$scope.m.displayAllCode;
+    };
+    $scope.run = function() {
+        if ($scope.m.robot === null) {
+            return;
+        }
+        $scope.m.running = true;
+        counter = Math.abs(parseInt($scope.m.counter, 10)) % 20;
+        runLoop();
+    };
+    $scope.stopAcquisition = function() {
+        if ($scope.m.robot !== null) {
+            $scope.m.robot.buzzerFrequency(0);
+        }
+        robotFactory.unregister();
+    };
+    robotFactory.getRobots(setRobot, 1);
+}]).controller('lessonFourController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
+    var counter = 0, sleep = 1000;
+    function setRobot(robots) {
+        $scope.m.robot = robots[0];
+        $scope.m.robot.buzzerFrequency(0);
+    }
+    function runLoop() {
+        if ($scope.m.stop === true) {
+            $scope.m.robot.buzzerFrequency(0);
+            $scope.m.running = false;
+            return;
+        }
+        var kValues = $scope.m.kValues.map(function(num) { return parseInt(num, 10); });
+        var buzzer = Math.pow(2, (counter - kValues[0]) / kValues[1]) * kValues[2];
+        var decRange = parseInt($scope.m.decRange, 10);
+        var endRange = parseInt($scope.m.endRange, 10);
+        $scope.m.robot.buzzerFrequency(buzzer);
+        $timeout(function() {
+            $scope.m.robot.buzzerFrequency(0);
+            if ($scope.m.stop === true) {
+                $scope.m.robot.buzzerFrequency(0);
+                $scope.m.running = false;
+                return;
+            }
+            $timeout(function() {
+                if ($scope.m.stop === true) {
+                    $scope.m.robot.buzzerFrequency(0);
+                    $scope.m.running = false;
+                    return;
+                }
+                counter+=decRange;
+                sleep -= 100;
+                if (counter < endRange) {
+                    runLoop();
+                } else {
+                    $scope.m.running = false;
+                }
+            }, sleep);
+        }, sleep);
+    }
+    $scope.m = {
+        startRange: 33,
+        endRange: 53,
+        decRange: 2,
+        kValues: [49, 12, 440],
+        buzzer: 1046.5,
+        displayAllCode: false,
+        robot: null,
+        running: false,
+        stop: false
+    };
+    $scope.toggle = function() {
+        $scope.m.displayAllCode = !$scope.m.displayAllCode;
+    };
+    $scope.run = function() {
+        if ($scope.m.robot === null) {
+            return;
+        }
+        $scope.m.running = true;
+        $scope.m.stop = false;
+        counter = Math.abs(parseInt($scope.m.startRange, 10)) % 20;
+        sleep = 1000;
+        runLoop();
+    };
+    $scope.stop = function() {
+        $scope.m.stop = true;
+    };
+    $scope.stopAcquisition = function() {
+        if ($scope.m.robot !== null) {
+            $scope.m.robot.buzzerFrequency(0);
+        }
+        robotFactory.unregister();
+    };
+    robotFactory.getRobots(setRobot, 1);
+}]).controller('lessonFiveController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
+    var index = 0;
+    function setRobot(robots) {
+        $scope.m.robot = robots[0];
+        $scope.m.robot.buzzerFrequency(0);
+    }
+    function play() {
+        if (index >= 8) {
+            $scope.m.robot.buzzerFrequency(0);
+            $scope.m.running = false;
+        } else {
+            var buzzer = parseFloat($scope.m.notes[index++]);
+            $scope.m.robot.buzzerFrequency(buzzer);
+            $timeout(play, 500);
+        }
+    }
+    $scope.m = {
+        notes: [1046.5, 1174.7, 1318.5, 1396.9, 1568.0, 1760.0, 1975.5, 2093.0, 0],
+        displayAllCode: false,
+        robot: null,
+        running: false
+    };
+    $scope.toggle = function() {
+        $scope.m.displayAllCode = !$scope.m.displayAllCode;
+    };
+    $scope.run = function() {
+        if ($scope.m.robot === null) {
+            return;
+        }
+        $scope.m.running = true;
+        index = 0;
+        play();
+    };
+    $scope.stopAcquisition = function() {
+        if ($scope.m.robot !== null) {
+            $scope.m.robot.buzzerFrequency(0);
+        }
+        robotFactory.unregister();
+    };
+    robotFactory.getRobots(setRobot, 1);
+}]).controller('lessonSixController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
+    var index = 0;
+    function setRobot(robots) {
+        $scope.m.robot = robots[0];
+        $scope.m.robot.buzzerFrequency(0);
+    }
+    function play() {
+        if (index >= 27) {
+            $scope.m.robot.buzzerFrequency(0);
+            $scope.m.running = false;
+        } else {
+            var buzzer = parseFloat($scope.m.notes[index]);
+            var timer = parseFloat($scope.m.sleeps[index++]) * 1000;
+            console.log(buzzer);
+            $scope.m.robot.buzzerFrequency(buzzer);
+            $timeout(play, timer);
+        }
+    }
+    $scope.m = {
+        notes: [1046.5, 0, 1046.5, 0, 1568, 0, 1568, 0, 1760, 0, 1568, 0, 1396.9, 0, 1396.9, 0, 1318.5, 0, 1318.5, 0, 1174.7, 0, 1174.7, 0, 1046.5],
+        sleeps: [0.25, 0.25, 0.25, 0.25, 0.5, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.5, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.5, 0.25],
+        displayAllCode: false,
+        robot: null,
+        running: false
+    };
+    $scope.toggle = function() {
+        $scope.m.displayAllCode = !$scope.m.displayAllCode;
+    };
+    $scope.run = function() {
+        if ($scope.m.robot === null) {
+            return;
+        }
+        $scope.m.running = true;
+        index = 0;
+        play();
+    };
+    $scope.stopAcquisition = function() {
+        if ($scope.m.robot !== null) {
+            $scope.m.robot.buzzerFrequency(0);
+        }
+        robotFactory.unregister();
+    };
+    robotFactory.getRobots(setRobot, 1);
 }]);

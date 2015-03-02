@@ -23,25 +23,6 @@
                     ng-mouseout="leaveKey($event)"
                     data-octave="5" class="piano-keys" src="'img/piano-keyboard.svg'"></ng-include>
         </div>
-        <!--
-        <div class="code-snippet">
-            <pre><code class="hljs python"><div ng-show="m.displayAllCode" class="animate-show"><span class="hljs-comment">#!/usr/bin/env Python3</span>
-
-                <span class="hljs-comment"># Filename: Lesson01.py</span>
-
-                import linkbot
-                import <span class="hljs-keyword">time</span>
-
-                robot = linkbot.Linkbot('<span class="hljs-string" ng-bind="m.robotId"></span>')</div>
-                robot.setBuzzerFrequency(<span class="hljs-number" ng-model="m.buzzerFrequency" contenteditable="true" ng-change="change(this)">1046.5</span>)
-                <span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleep1" contenteditable="true" class="hljs-number">1.5</span>)
-                robot.setBuzzerFrequency(<span class="hljs-number">0</span>)
-                <span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleep2" contenteditable="true" class="hljs-number">3</span>)
-                robot.setLedColor(<span class="hljs-number" ng-model="m.led1" contenteditable="true">255</span>,<span ng-model="m.led2" contenteditable="true" class="hljs-number">0</span>,<span ng-model="m.led3" contenteditable="true" class="hljs-number">0</span>)
-            </code></pre>
-            <span ng-click="toggle()" class="code-snippet-tab glyphicon" ng-class="{'glyphicon-chevron-down': !m.displayAllCode, 'glyphicon-chevron-up': m.displayAllCode}"></span>
-        </div>
-        -->
         <div class="code-snippet">
             <pre><code class="hljs python"><div ng-show="m.displayAllCode"><span class="hljs-comment">#!/usr/bin/env python3</span>
 
@@ -57,7 +38,7 @@ robot.setBuzzerFrequency(<span class="hljs-number">0</span>)
         </code></pre>
             <span ng-click="toggle()" class="code-snippet-tab glyphicon" ng-class="{'glyphicon-chevron-down': !m.displayAllCode, 'glyphicon-chevron-up': m.displayAllCode}"></span>
         </div>
-        <button class="btn btn-primary" ng-class="{true: 'disabled'}[m.robotId == '' || m.running]" ng-click="run()">Play</button>
+        <button class="btn btn-primary" ng-class="{true: 'disabled'}[m.robot == null || m.running]" ng-click="run()">Play</button>
         <hr />
         <div class="clearfix">
             <a href="#/lesson-one" ng-click="stopAcquisition()" class="btn btn-default pull-right">Next</a>
