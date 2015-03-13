@@ -101,6 +101,9 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory',
     };
     $scope.util = util;
     robotFactory.getRobots(setRobot, 1);
+    Linkbots.setNavigationTitle('Pianobot');
+    Linkbots.setNavigationItems([{title:'Introductory Python', url:'/AppManagerApp/introductory_python/index.html'},
+        {title:'Chapter 1', url:'#/'}, {title:'Pianobot', url:'#/'}]);
 }]).controller('lessonOneController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
     function setRobot(robots) {
         $scope.m.robot = robots[0];
@@ -135,6 +138,9 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory',
         robotFactory.unregister();
     };
     robotFactory.getRobots(setRobot, 1);
+    Linkbots.setNavigationTitle('Lesson 1');
+    Linkbots.setNavigationItems([{title:'Introductory Python', url:'/AppManagerApp/introductory_python/index.html'},
+        {title:'Chapter 1', url:'#/'}, {title:'Lesson 1', url:'#/lesson-one'}]);
 }]).controller('lessonTwoController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
     var counter = 0;
     function setRobot(robots) {
@@ -184,6 +190,9 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory',
         robotFactory.unregister();
     };
     robotFactory.getRobots(setRobot, 1);
+    Linkbots.setNavigationTitle('Lesson 2');
+    Linkbots.setNavigationItems([{title:'Introductory Python', url:'/AppManagerApp/introductory_python/index.html'},
+        {title:'Chapter 1', url:'#/'}, {title:'Lesson 2', url:'#/lesson-two'}]);
 }]).controller('lessonThreeController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
     var counter = 0;
     function setRobot(robots) {
@@ -234,6 +243,9 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory',
         robotFactory.unregister();
     };
     robotFactory.getRobots(setRobot, 1);
+    Linkbots.setNavigationTitle('Lesson 3');
+    Linkbots.setNavigationItems([{title:'Introductory Python', url:'/AppManagerApp/introductory_python/index.html'},
+        {title:'Chapter 1', url:'#/'}, {title:'Lesson 3', url:'#/lesson-three'}]);
 }]).controller('lessonFourController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
     var counter = 0, sleep = 1000;
     function setRobot(robots) {
@@ -308,6 +320,9 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory',
         robotFactory.unregister();
     };
     robotFactory.getRobots(setRobot, 1);
+    Linkbots.setNavigationTitle('Lesson 4');
+    Linkbots.setNavigationItems([{title:'Introductory Python', url:'/AppManagerApp/introductory_python/index.html'},
+        {title:'Chapter 1', url:'#/'}, {title:'Lesson 4', url:'#/lesson-four'}]);
 }]).controller('lessonFiveController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
     var index = 0;
     function setRobot(robots) {
@@ -348,6 +363,9 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory',
         robotFactory.unregister();
     };
     robotFactory.getRobots(setRobot, 1);
+    Linkbots.setNavigationTitle('Lesson 5');
+    Linkbots.setNavigationItems([{title:'Introductory Python', url:'/AppManagerApp/introductory_python/index.html'},
+        {title:'Chapter 1', url:'#/'}, {title:'Lesson 5', url:'#/lesson-five'}]);
 }]).controller('lessonSixController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
     var index = 0;
     function setRobot(robots) {
@@ -391,4 +409,7 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory',
         robotFactory.unregister();
     };
     robotFactory.getRobots(setRobot, 1);
+    Linkbots.setNavigationTitle('Lesson 6');
+    Linkbots.setNavigationItems([{title:'Introductory Python', url:'/AppManagerApp/introductory_python/index.html'},
+        {title:'Chapter 1', url:'#/'}, {title:'Lesson 6', url:'#/lesson-six'}]);
 }]);

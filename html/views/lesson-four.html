@@ -25,7 +25,7 @@ t=<span class="hljs-number">1</span>
             <span ng-click="toggle()" class="code-snippet-tab glyphicon" ng-class="{'glyphicon-chevron-down': !m.displayAllCode, 'glyphicon-chevron-up': m.displayAllCode}"></span>
         </div>
         <button class="btn btn-primary" ng-class="{true: 'disabled'}[m.robot == null || m.running]" ng-click="run()">Run</button>
-        <button class="btn btn-danger" ng-class="{true: 'disabled'}[!m.running]" ng-click="run()">Stop</button>
+        <button class="btn btn-danger" ng-class="{true: 'disabled'}[!m.running]" ng-click="stop()">Stop</button>
         <h2>Explore</h2>
         <p>
             Create an alarm that makes the pitch go up while the duration gets fast. Try to create the most irritating
