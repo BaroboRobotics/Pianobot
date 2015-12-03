@@ -1,0 +1,57 @@
+body {
+    margin-left: 30px;
+    margin-bottom: 50px;
+}
+.hljs {
+    background: transparent;
+}
+.code-snippet {
+    max-width: 600px;
+}
+.code-snippet-tab {
+    box-shadow: inherit;
+    position: relative;
+    right: -80%;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    border-top: none;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    padding: 10px 20px;
+    top: -11px;
+}
+[contenteditable="true"] {
+    text-decoration: underline;
+}
+.piano-key {
+    cursor: pointer;
+}
+
+.piano-key.white {
+    fill: white;
+    stroke: black;
+    transition: fill 0.15s;
+    transition-timing-function: ease;
+}
+
+.piano-key.black {
+    fill: black;
+    stroke: black;
+    transition: fill 0.15s;
+    transition-timing-function: ease;
+}
+
+.piano-key.playing {
+    fill: blue;
+}
+.piano {
+    -webkit-user-select: none;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    overflow: hidden;
+    min-width: 500px;
+}
+.piano-keys {
+    float: left;
+}

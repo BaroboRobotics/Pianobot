@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <h1>Lesson 5</h1>
+        <h2>Objective</h2>
+        <div class="clearfix">
+            <img src="img/lesson5-keyboard.png" width="136" height="131" alt="piano keyboard" class="pull-right" style="margin-left: 5px;" />
+            <p>The piano keyboard is made up of notes with different frequencies. The Linkbot can play these  notes if
+                you enter the frequencies. Let’s try to enter "Do Re Mi Fa Sol La Ti Do", it starts at middle "C" which
+                has a frequency of 1048.5 and goes to "D" with frequency 1174.7, and so on. Notice it takes a new line
+                of code for each note, make the sleep time for each note the same.</p>
+        </div>
+        <div class="code-snippet">
+            <pre><code class="hljs python"><div ng-show="m.displayAllCode"><span class="hljs-comment">#!/usr/bin/env python3</span>
+
+<span class="hljs-comment"># Filename: Lesson05.py</span>
+import linkbot
+import <span class="hljs-keyword">time</span>
+
+robot = linkbot.Linkbot('<span class="hljs-string" ng-bind="m.robot.id"></span>')</div>
+robot.setBuzzerFrequency(<span ng-model="m.notes[0]" contenteditable="true" class="hljs-number">1046.5</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(.<span class="hljs-number">5</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[1]" contenteditable="true" class="hljs-number">1174.7</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(.<span class="hljs-number">5</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[2]" contenteditable="true" class="hljs-number">1318.5</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(.<span class="hljs-number">5</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[3]" contenteditable="true" class="hljs-number">1396.9</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(.<span class="hljs-number">5</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[4]" contenteditable="true" class="hljs-number">1568.0</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(.<span class="hljs-number">5</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[5]" contenteditable="true" class="hljs-number">1760.0</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(.<span class="hljs-number">5</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[6]" contenteditable="true" class="hljs-number">1975.5</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(.<span class="hljs-number">5</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[7]" contenteditable="true" class="hljs-number">2093.0</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(.<span class="hljs-number">5</span>)
+robot.setBuzzerFrequency(<span class="hljs-number">0</span>)
+            </code></pre>
+            <span ng-click="toggle()" class="code-snippet-tab glyphicon" ng-class="{'glyphicon-chevron-down': !m.displayAllCode, 'glyphicon-chevron-up': m.displayAllCode}"></span>
+        </div>
+
+        <button class="btn btn-primary" ng-class="{true: 'disabled'}[m.robot == null || m.running]" ng-click="run()">Run</button>
+        <h2>Explore</h2>
+        <p>
+            Program the Linkbot to play scales in different keys.
+        </p>
+        <hr />
+        <div class="clearfix">
+            <a href="#/lesson-four" ng-click="stopAcquisition()" class="btn btn-default pull-left">Prev</a>
+            <a href="#/lesson-six" ng-click="stopAcquisition()" class="btn btn-default pull-right">Next</a>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <h1>Pianobot</h1>
+        <h2>Objective</h2>
+        <p>The Linkbot has a buzzer which can be used to play musical pitches. Try it out!</p>
+        <div class="piano">
+            <ng-include
+                    ng-mousedown="strikeKey($event)"
+                    ng-mouseup="muteKey($event)"
+                    ng-mouseover="swipeKey($event)"
+                    ng-mouseout="leaveKey($event)"
+                    data-octave="3" class="piano-keys" src="'img/piano-keyboard.svg'"></ng-include>
+            <ng-include
+                    ng-mousedown="strikeKey($event)"
+                    ng-mouseup="muteKey($event)"
+                    ng-mouseover="swipeKey($event)"
+                    ng-mouseout="leaveKey($event)"
+                    data-octave="4" class="piano-keys" src="'img/piano-keyboard.svg'"></ng-include>
+            <ng-include
+                    ng-mousedown="strikeKey($event)"
+                    ng-mouseup="muteKey($event)"
+                    ng-mouseover="swipeKey($event)"
+                    ng-mouseout="leaveKey($event)"
+                    data-octave="5" class="piano-keys" src="'img/piano-keyboard.svg'"></ng-include>
+        </div>
+        <div class="code-snippet">
+            <pre><code class="hljs python"><div ng-show="m.displayAllCode"><span class="hljs-comment">#!/usr/bin/env python3</span>
+
+<span class="hljs-keyword">from</span> linkbot <span class="hljs-keyword">import</span> Linkbot
+<span class="hljs-keyword">from</span> time <span class="hljs-keyword">import</span> sleep
+
+
+<span class="hljs-comment"># Change the robot ID shown below to the ID of your Linkbot.</span>
+robot = Linkbot('<span class="hljs-string" ng-bind="m.robot.id"></span>')</div>
+robot.setBuzzerFrequency(<span class="hljs-number">{{util.oneDecimal(util.frequencyFromScientificPitch(note.scientificPitch))}}</span>)
+sleep(<span class="hljs-number">{{note.duration / 1000}}</span>)
+robot.setBuzzerFrequency(<span class="hljs-number">0</span>)
+        </code></pre>
+            <span ng-click="toggle()" class="code-snippet-tab glyphicon" ng-class="{'glyphicon-chevron-down': !m.displayAllCode, 'glyphicon-chevron-up': m.displayAllCode}"></span>
+        </div>
+        <button class="btn btn-primary" ng-class="{true: 'disabled'}[m.robot == null || m.running]" ng-click="run()">Play</button>
+        <hr />
+        <div class="clearfix">
+            <a href="/introductory-python/index.html" ng-click="stopAcquisition()" class="btn btn-default pull-left">Introductory Python</a>
+            <a href="#/lesson-one" ng-click="stopAcquisition()" class="btn btn-default pull-right">Next</a>
+        </div>
+    </div>
+
+</div>

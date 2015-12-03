@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+        <h1>Lesson 6</h1>
+        <h2>Objective</h2>
+        <div class="clearfix">
+           
+            <p>In the last lesson you learned how to change the frequencies to play a scale. In this lesson we will 
+                change duration times and frequencies to write a selected piece of music. Whole notes and  half notes 
+                will be needed to control the tempo.</p>
+        </div>
+        <div class="code-snippet">
+            <pre><code class="hljs python"><div ng-show="m.displayAllCode"><span class="hljs-comment">#!/usr/bin/env python3</span>
+
+<span class="hljs-comment"># Filename: Lesson06.py</span>
+import linkbot
+import <span class="hljs-keyword">time</span>
+
+robot = linkbot.Linkbot('<span class="hljs-string" ng-bind="m.robot.id"></span>')</div>
+robot.setBuzzerFrequency(<span ng-model="m.notes[0]" contenteditable="true" class="hljs-number">1046.5</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[0]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[1]" contenteditable="true" class="hljs-number">0</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[1]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[2]" contenteditable="true" class="hljs-number">1046.5</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[2]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[3]" contenteditable="true" class="hljs-number">0</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[3]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[4]" contenteditable="true" class="hljs-number">1568</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[4]" contenteditable="true" class="hljs-number">.5</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[5]" contenteditable="true" class="hljs-number">0</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[5]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[6]" contenteditable="true" class="hljs-number">1568</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[6]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[7]" contenteditable="true" class="hljs-number">0</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[7]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[8]" contenteditable="true" class="hljs-number">1760</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[8]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[9]" contenteditable="true" class="hljs-number">0</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[9]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[10]" contenteditable="true" class="hljs-number">1760</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[10]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[11]" contenteditable="true" class="hljs-number">0</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[11]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[12]" contenteditable="true" class="hljs-number">1568</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[12]" contenteditable="true" class="hljs-number">.5</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[13]" contenteditable="true" class="hljs-number">0</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[13]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[14]" contenteditable="true" class="hljs-number">1396.9</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[14]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[15]" contenteditable="true" class="hljs-number">0</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[15]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[16]" contenteditable="true" class="hljs-number">1396.9</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[16]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[17]" contenteditable="true" class="hljs-number">0</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[17]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[18]" contenteditable="true" class="hljs-number">1318.5</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[18]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[19]" contenteditable="true" class="hljs-number">0</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[19]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[20]" contenteditable="true" class="hljs-number">1318.5</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[20]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[21]" contenteditable="true" class="hljs-number">0</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[21]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[22]" contenteditable="true" class="hljs-number">1174.7</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[22]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[23]" contenteditable="true" class="hljs-number">0</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[23]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[24]" contenteditable="true" class="hljs-number">1174.7</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[24]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[25]" contenteditable="true" class="hljs-number">0</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[25]" contenteditable="true" class="hljs-number">.25</span>)
+robot.setBuzzerFrequency(<span ng-model="m.notes[26]" contenteditable="true" class="hljs-number">1046.5</span>)
+<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleeps[26]" contenteditable="true" class="hljs-number">.5</span>)
+robot.setBuzzerFrequency(<span class="hljs-number">0</span>)
+            </code></pre>
+            <span ng-click="toggle()" class="code-snippet-tab glyphicon" ng-class="{'glyphicon-chevron-down': !m.displayAllCode, 'glyphicon-chevron-up': m.displayAllCode}"></span>
+        </div>
+
+        <button class="btn btn-primary" ng-class="{true: 'disabled'}[m.robot == null || m.running]" ng-click="run()">Run</button>
+        <div>
+            <img src="img/lesson6-music.png" width="596" height="121" alt="musical notes" />
+        </div>
+        <h2>Explore</h2>
+        <p>
+            Pick your own piece of music and program the Linkbot to play your tune. Use the keyboard frequencies and explore the tempo of the piece to make it sound correct.
+        </p>
+        <hr />
+        <div class="clearfix">
+            <a href="#/lesson-five" ng-click="stopAcquisition()" class="btn btn-default pull-left">Prev</a>
+            <a href="/introductory-python/index.html" ng-click="stopAcquisition()" class="btn btn-default pull-right">Introductory Python</a>
+        </div>
+    </div>
+
+</div>
