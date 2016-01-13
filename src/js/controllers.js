@@ -102,7 +102,7 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory',
     $scope.util = util;
     robotFactory.getRobots(setRobot, 1);
     Linkbots.setNavigationTitle('Pianobot');
-    Linkbots.setNavigationItems([{title:'Introductory Python', url:'introductory-python/index.html'},
+    Linkbots.setNavigationItems([{title:'Introductory Python', url:'/introductory-python/index.html'},
         {title:'Chapter 1', url:'#/'}, {title:'Pianobot', url:'#/'}]);
 }]).controller('lessonOneController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
     function setRobot(robots) {
