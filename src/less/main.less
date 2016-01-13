@@ -1,0 +1,186 @@
+body {
+  margin-left: 30px;
+  margin-bottom: 50px;
+}
+.hljs {
+  background: transparent;
+}
+.code-snippet {
+  max-width: 600px;
+}
+.code-snippet-tab {
+  box-shadow: inherit;
+  position: relative;
+  right: -80%;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  border-top: none;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  padding: 10px 20px;
+  top: -11px;
+}
+[contenteditable="true"] {
+  text-decoration: underline;
+}
+.piano-key {
+  cursor: pointer;
+}
+
+.piano-key.white {
+  fill: white;
+  stroke: black;
+  transition: fill 0.15s;
+  transition-timing-function: ease;
+}
+
+.piano-key.black {
+  fill: black;
+  stroke: black;
+  transition: fill 0.15s;
+  transition-timing-function: ease;
+}
+
+.piano-key.playing {
+  fill: blue;
+}
+.piano {
+  -webkit-user-select: none;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  overflow: hidden;
+  min-width: 500px;
+}
+.piano-keys {
+  float: left;
+}
+.spinner {
+  z-index: 10;
+  width: 200px;
+  height: 200px;
+  margin: -100px 0 0 -100px;
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  background-image: url('../img/large_spinner.png');
+  -webkit-animation: spin 1.5s linear infinite;
+  -moz-animation: spin 1.5s linear infinite;
+  animation: spin 1.5s linear infinite;
+  text-align: center;
+  padding-top: 85px;
+  font-weight: bold;
+}
+.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+/* See http://jsfiddle.net/andsens/mLA7X/ */
+
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
+
+.radial-progress {
+  @circle-size: 160px;
+  @circle-background: #d6dadc;
+  @circle-color: #26aee8;
+  @inset-size: 120px;
+  @inset-color: #fbfbfb;
+  @transition-length: 1s;
+  @shadow: 3px 3px 6px rgba(0,0,0,0.2);
+  @percentage-color: #26aee8;
+  @percentage-font-size: 35px;
+  @percentage-text-width: 90px;
+
+  margin: 20px auto;
+  width:  @circle-size;
+  height: @circle-size;
+
+  background-color: @circle-background;
+  border-radius: 50%;
+  .circle {
+    .mask, .fill, .shadow {
+      width:    @circle-size;
+      height:   @circle-size;
+      position: absolute;
+      border-radius: 50%;
+    }
+    .shadow {
+      box-shadow: @shadow inset;
+    }
+    .mask, .fill {
+      -webkit-backface-visibility: hidden;
+      transition: -webkit-transform @transition-length;
+      transition: -ms-transform @transition-length;
+      transition: transform @transition-length;
+      border-radius: 50%;
+    }
+    .mask {
+      clip: rect(0px, @circle-size, @circle-size, @circle-size/2);
+      .fill {
+        clip: rect(0px, @circle-size/2, @circle-size, 0px);
+        background-color: @circle-color;
+      }
+    }
+  }
+  .inset {
+    width:       @inset-size;
+    height:      @inset-size;
+    position:    absolute;
+    margin-left: (@circle-size - @inset-size)/2;
+    margin-top:  (@circle-size - @inset-size)/2;
+
+    background-color: @inset-color;
+    border-radius: 50%;
+    box-shadow: @shadow;
+    .percentage {
+      height:   @percentage-font-size;
+      width:    @percentage-text-width;
+      overflow: hidden;
+
+      position: absolute;
+      top:      (@inset-size - @percentage-font-size) / 2;
+      left:     (@inset-size - @percentage-text-width) / 2;
+
+      line-height: 1;
+      .numbers {
+        margin-top: -@percentage-font-size;
+        transition: width @transition-length;
+        span {
+          width:          @percentage-text-width;
+          display:        inline-block;
+          vertical-align: top;
+          text-align:     center;
+          font-weight:    800;
+          font-size:      @percentage-font-size;
+          font-family:    "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+          color:          @percentage-color;
+        }
+      }
+    }
+  }
+
+  @i: 0;
+  @increment: 180deg / 100;
+  .loop (@i) when (@i <= 100) {
+    &[data-progress="@{i}"] {
+      .circle {
+        .mask.full, .fill {
+          -webkit-transform: rotate(@increment * @i);
+          -ms-transform: rotate(@increment * @i);
+          transform: rotate(@increment * @i);
+        }
+        .fill.fix {
+          -webkit-transform: rotate(@increment * @i * 2);
+          -ms-transform: rotate(@increment * @i * 2);
+          transform: rotate(@increment * @i * 2);
+        }
+      }
+      .inset .percentage .numbers {
+        width: @i * @percentage-text-width + @percentage-text-width;
+      }
+    }
+    .loop(@i + 1);
+  }
+  .loop(@i);
+}

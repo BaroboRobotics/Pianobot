@@ -117,10 +117,17 @@ chapter1.factory('robotFactory', ['$interval', function($interval) {
          * handler is installed at the octave level, but the click is generated at
          * the key level. Therefore, event.target is the key element and
          * event.currentTarget is the octave element. */
-        return {
-            pitch: event.target.dataset.pitch,
-            octave: event.currentTarget.dataset.octave
-        };
+        if (event.target.dataset) {
+            return {
+                pitch: event.target.dataset.pitch,
+                octave: event.currentTarget.dataset.octave
+            };
+        } else {
+            return {
+                pitch: event.target.attributes['data-pitch'].value,
+                octave: event.currentTarget.dataset.octave
+            };
+        }
     };
 
     utility.strikeFromEvent = function(event) {

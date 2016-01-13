@@ -134,6 +134,8 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory',
     Linkbots.setNavigationTitle('Pianobot');
     Linkbots.setNavigationItems([{title:'Introductory Python', url:'introductory-python/index.html'},
         {title:'Chapter 1', url:'#/'}, {title:'Pianobot', url:'#/'}]);
+    // 1/7 since it's the first of 7 lessons.
+    $('.radial-progress').attr('data-progress', Math.floor((1 / 7) * 100));
 }]).controller('lessonOneController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
     function setRobot(robots) {
         $scope.m.robot = robots[0];
@@ -608,10 +610,17 @@ chapter1.factory('robotFactory', ['$interval', function($interval) {
          * handler is installed at the octave level, but the click is generated at
          * the key level. Therefore, event.target is the key element and
          * event.currentTarget is the octave element. */
-        return {
-            pitch: event.target.dataset.pitch,
-            octave: event.currentTarget.dataset.octave
-        };
+        if (event.target.dataset) {
+            return {
+                pitch: event.target.dataset.pitch,
+                octave: event.currentTarget.dataset.octave
+            };
+        } else {
+            return {
+                pitch: event.target.attributes['data-pitch'].value,
+                octave: event.currentTarget.dataset.octave
+            };
+        }
     };
 
     utility.strikeFromEvent = function(event) {
