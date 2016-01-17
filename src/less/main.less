@@ -21,6 +21,9 @@ body {
   padding: 10px 20px;
   top: -11px;
 }
+.modifiable {
+  border-bottom: 1px dotted black;
+}
 [contenteditable="true"] {
   text-decoration: underline;
 }
@@ -76,21 +79,26 @@ body {
   background-color: #428bca;
 }
 
+.clear-note {
+  float: right;
+  position: relative;
+  top: 5px;
+  right: 10px;
+}
+
 /* See http://jsfiddle.net/andsens/mLA7X/ */
 
-@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
-
 .radial-progress {
-  @circle-size: 160px;
+  @circle-size: 60px;
   @circle-background: #d6dadc;
   @circle-color: #26aee8;
-  @inset-size: 120px;
+  @inset-size: 40px;
   @inset-color: #fbfbfb;
   @transition-length: 1s;
   @shadow: 3px 3px 6px rgba(0,0,0,0.2);
   @percentage-color: #26aee8;
-  @percentage-font-size: 35px;
-  @percentage-text-width: 90px;
+  @percentage-font-size: 12px;
+  @percentage-text-width: 30px;
 
   margin: 20px auto;
   width:  @circle-size;

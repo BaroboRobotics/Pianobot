@@ -4,42 +4,83 @@
 chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory', 'util', function($scope, $timeout, robotFactory, util) {
     function setRobot(robots) {
         $scope.m.robot = robots[0];
-        $scope.m.robot.buzzerFrequency(0);
+        if ($scope.m.robot && $scope.m.robot !== null) {
+            $scope.m.robot.buzzerFrequency(0);
+        }
+    }
+    function playNote() {
+        if ($scope.m.robot === null) {
+            return;
+        }
+        $scope.m.index++;
+        if ($scope.m.index >= $scope.notes.length) {
+            // Reset buzzer.
+            $scope.m.robot.buzzerFrequency(0);
+            $scope.m.index = -1;
+            $scope.m.timeout = null;
+            $scope.m.running = false;
+            return;
+        }
+        var note = $scope.notes[$scope.m.index];
+        if (note) {
+            $scope.m.robot.buzzerFrequency(note.frequency);
+            if (note.duration > 0) {
+                $scope.m.timeout = $timeout(playNote, (note.duration * 1000));
+            }
+        }
     }
     $scope.m = {
         displayAllCode: false,
         robot: null,
-        running: false
+        running: false,
+        index: -1,
+        timeout: null
     };
     /* Used to save state between strikeKey and muteKey handlers. */
     $scope.strike = { };
 
     /* Default note is A4 for half a second. */
-    $scope.note = {
-        scientificPitch: {
-            pitch: 'a',
-            octave: 4
-        },
-        duration: 500
-    };
+    $scope.notes = [
+        {
+            frequency: 440,
+            duration: 0.5
+        }
+    ];
     $scope.toggle = function() {
         $scope.m.displayAllCode = !$scope.m.displayAllCode;
+    };
+    $scope.deleteNote = function(i) {
+        $scope.notes.splice(i, 1);
+    };
+    $scope.stop = function() {
+        if ($scope.m.timeout && $scope.m.timeout !== null) {
+            $timeout.cancel($scope.m.timeout);
+        }
+        if ($scope.m.robot !== null) {
+            $scope.m.robot.buzzerFrequency(0);
+        }
+        $scope.m.index = -1;
+        $scope.m.timeout = null;
+        $scope.m.running = false;
     };
     $scope.run = function() {
         if ($scope.m.robot === null) {
             return;
         }
+        if ($scope.m.timeout && $scope.m.timeout !== null) {
+            $timeout.cancel($scope.m.timeout);
+        }
+        $scope.m.index = -1;
+        $scope.m.timeout = null;
         $scope.m.running = true;
-        var robot = $scope.m.robot;
-        robot.buzzerFrequency(util.frequencyFromScientificPitch($scope.note.scientificPitch));
-        $timeout(function () {
-            robot.buzzerFrequency(0);
-            $scope.m.running = false;
-        }, $scope.note.duration);
+        playNote();
     };
     $scope.stopAcquisition = function() {
-        if ($scope.m.robot === null) {
+        if ($scope.m.robot !== null) {
             $scope.m.robot.buzzerFrequency(0);
+        }
+        if ($scope.m.timeout && $scope.m.timeout !== null) {
+            $timeout.cancel($scope.m.timeout);
         }
         robotFactory.unregister();
     };
@@ -61,7 +102,10 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory',
         util.stopPlaying(event.target);
 
         /* Complete the current strike. */
-        $scope.note = util.noteFromStrike($scope.strike, event.timeStamp);
+        var note = util.noteFromStrike($scope.strike, event.timeStamp);
+        note.frequency = util.oneDecimal(util.frequencyFromScientificPitch(note.scientificPitch));
+        note.duration = note.duration / 1000;
+        $scope.notes.push(note);
 
         /* Don't need the strike information anymore. */
         $scope.strike = { };
@@ -82,7 +126,10 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory',
         util.stopPlaying(event.relatedTarget);
 
         /* We changed keys. Complete the current strike. */
-        $scope.note = util.noteFromStrike($scope.strike, event.timeStamp);
+        var note = util.noteFromStrike($scope.strike, event.timeStamp);
+        note.frequency = util.oneDecimal(util.frequencyFromScientificPitch(note.scientificPitch));
+        note.duration = note.duration / 1000;
+        $scope.notes.push(note);
 
         /* A wee hacky, but from here on out we can just treat this event as a
          * mousedown event. */
@@ -143,6 +190,7 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory',
     Linkbots.setNavigationTitle('Lesson 1');
     Linkbots.setNavigationItems([{title:'Introductory Python', url:'/introductory-python/index.html'},
         {title:'Chapter 1', url:'#/'}, {title:'Lesson 1', url:'#/lesson-one'}]);
+    $('.radial-progress').attr('data-progress', Math.floor((2 / 7) * 100));
 }]).controller('lessonTwoController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
     var counter = 0;
     function setRobot(robots) {
@@ -195,6 +243,7 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory',
     Linkbots.setNavigationTitle('Lesson 2');
     Linkbots.setNavigationItems([{title:'Introductory Python', url:'/introductory-python/index.html'},
         {title:'Chapter 1', url:'#/'}, {title:'Lesson 2', url:'#/lesson-two'}]);
+    $('.radial-progress').attr('data-progress', Math.floor((3 / 7) * 100));
 }]).controller('lessonThreeController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
     var counter = 0;
     function setRobot(robots) {
@@ -248,6 +297,7 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory',
     Linkbots.setNavigationTitle('Lesson 3');
     Linkbots.setNavigationItems([{title:'Introductory Python', url:'/introductory-python/index.html'},
         {title:'Chapter 1', url:'#/'}, {title:'Lesson 3', url:'#/lesson-three'}]);
+    $('.radial-progress').attr('data-progress', Math.floor((4 / 7) * 100));
 }]).controller('lessonFourController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
     var counter = 0, sleep = 1000;
     function setRobot(robots) {
@@ -325,6 +375,7 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory',
     Linkbots.setNavigationTitle('Lesson 4');
     Linkbots.setNavigationItems([{title:'Introductory Python', url:'/introductory-python/index.html'},
         {title:'Chapter 1', url:'#/'}, {title:'Lesson 4', url:'#/lesson-four'}]);
+    $('.radial-progress').attr('data-progress', Math.floor((5 / 7) * 100));
 }]).controller('lessonFiveController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
     var index = 0;
     function setRobot(robots) {
@@ -368,6 +419,7 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory',
     Linkbots.setNavigationTitle('Lesson 5');
     Linkbots.setNavigationItems([{title:'Introductory Python', url:'/introductory-python/index.html'},
         {title:'Chapter 1', url:'#/'}, {title:'Lesson 5', url:'#/lesson-five'}]);
+    $('.radial-progress').attr('data-progress', Math.floor((6 / 7) * 100));
 }]).controller('lessonSixController', ['$scope', '$timeout', 'robotFactory', function($scope, $timeout, robotFactory) {
     var index = 0;
     function setRobot(robots) {
@@ -414,4 +466,5 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory',
     Linkbots.setNavigationTitle('Lesson 6');
     Linkbots.setNavigationItems([{title:'Introductory Python', url:'/introductory-python/index.html'},
         {title:'Chapter 1', url:'#/'}, {title:'Lesson 6', url:'#/lesson-six'}]);
+    $('.radial-progress').attr('data-progress', Math.floor((7 / 7) * 100));
 }]);
