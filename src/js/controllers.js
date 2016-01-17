@@ -149,7 +149,7 @@ chapter1.controller('pianobotController', ['$scope', '$timeout', 'robotFactory',
     $scope.util = util;
     robotFactory.getRobots(setRobot, 1);
     Linkbots.setNavigationTitle('Pianobot');
-    Linkbots.setNavigationItems([{title:'Introductory Python', url:'introductory-python/index.html'},
+    Linkbots.setNavigationItems([{title:'Introductory Python', url:'/introductory-python/index.html'},
         {title:'Chapter 1', url:'#/'}, {title:'Pianobot', url:'#/'}]);
     // 1/7 since it's the first of 7 lessons.
     $('.radial-progress').attr('data-progress', Math.floor((1 / 7) * 100));
