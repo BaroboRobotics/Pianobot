@@ -7,16 +7,18 @@
             code to control the tone and duration of the beep. Make the speaker beep for 1.5 seconds.</p>
 
         <div class="code-snippet">
-            <pre><code class="hljs python"><div ng-show="m.displayAllCode"><span class="hljs-comment">#!/usr/bin/env python3</span>
+            <pre><code class="hljs python" style="white-space: nowrap;">
+                <div ng-show="m.displayAllCode">
+                    <span class="hljs-comment">#!/usr/bin/env python3</span><br><br>
+                    <span class="hljs-comment"># Filename: Lesson01.py</span><br>
+                    import linkbot<br>
+                    import <span class="hljs-keyword">time</span><br><br>
 
-<span class="hljs-comment"># Filename: Lesson01.py</span>
-import linkbot
-import <span class="hljs-keyword">time</span>
-
-robot = linkbot.Linkbot('<span class="hljs-string" ng-bind="m.robot.id"></span>')</div>
-robot.setBuzzerFrequency(<span ng-model="m.buzzer" contenteditable="true" class="hljs-number">1046.5</span>)
-<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span class="hljs-number">1.5</span>)
-robot.setBuzzerFrequency(<span class="hljs-number">0</span>)
+                    robot = linkbot.Linkbot('<span class="hljs-string" ng-bind="m.robot.id"></span>')<br><br>
+                </div>
+                robot.setBuzzerFrequency(<modifiable number="true" mod-data="m.buzzer">{{m.buzzer}}</modifiable>)<br>
+                <span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span class="hljs-number">1.5</span>)<br>
+                robot.setBuzzerFrequency(<span class="hljs-number">0</span>)
             </code></pre>
             <span ng-click="toggle()" class="code-snippet-tab glyphicon" ng-class="{'glyphicon-chevron-down': !m.displayAllCode, 'glyphicon-chevron-up': m.displayAllCode}"></span>
         </div>

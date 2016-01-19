@@ -5,18 +5,19 @@
         <p>When large vehicles are backing up they make repeated beeping noise. Explore how the code is written to 
             make the Linkbot beep continuously like a truck backing up.</p>
         <div class="code-snippet">
-            <pre><code class="hljs python"><div ng-show="m.displayAllCode"><span class="hljs-comment">#!/usr/bin/env python3</span>
-
-<span class="hljs-comment"># Filename: Lesson02.py</span>
-import linkbot
-import <span class="hljs-keyword">time</span>
-
-robot = linkbot.Linkbot('<span class="hljs-string" ng-bind="m.robot.id"></span>')</div>
-<span class="hljs-keyword">for</span> i in range (<span class="hljs-number">10</span>):
-    robot.setBuzzerFrequency(<span ng-model="m.buzzer" contenteditable="true" class="hljs-number">4186.01</span>)
-    <span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleep1" contenteditable="true" class="hljs-number">.5</span>)
-    robot.setBuzzerFrequency(<span class="hljs-number">0</span>)
-    <span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<span ng-model="m.sleep2" contenteditable="true" class="hljs-number">.5</span>)
+            <pre><code class="hljs python" style="white-space: nowrap;">
+                <div ng-show="m.displayAllCode">
+                    <span class="hljs-comment">#!/usr/bin/env python3</span><br><br>
+                    <span class="hljs-comment"># Filename: Lesson02.py</span><br>
+                    import linkbot<br>
+                    import <span class="hljs-keyword">time</span><br>
+                    robot = linkbot.Linkbot('<span class="hljs-string" ng-bind="m.robot.id"></span>')<br><br>
+                </div>
+                <span class="hljs-keyword">for</span> i in range (<span class="hljs-number">10</span>):<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;robot.setBuzzerFrequency(<modifiable number="true" mod-data="m.buzzer">{{m.buzzer}}</modifiable>)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<modifiable number="true" mod-data="m.sleep1">{{m.sleep1}}</modifiable>)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;robot.setBuzzerFrequency(<span class="hljs-number">0</span>)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword">time</span>.<span class="hljs-keyword">sleep</span>(<modifiable number="true" mod-data="m.sleep2">{{m.sleep2}}</modifiable>)<br>
             </code></pre>
             <span ng-click="toggle()" class="code-snippet-tab glyphicon" ng-class="{'glyphicon-chevron-down': !m.displayAllCode, 'glyphicon-chevron-up': m.displayAllCode}"></span>
         </div>
